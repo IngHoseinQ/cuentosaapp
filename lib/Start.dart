@@ -98,7 +98,7 @@ class _introState extends State<intro> {
     PageViewModel(
       title: 'مرحبا',
       body: 'مرحبا بك في تطبيق القصص المتنوع',
-      image: Image.asset('asst/p1.jpg'),
+      image: Image.asset('asst/app/p1.jpg'),
 
       decoration: const PageDecoration(
         titleTextStyle: TextStyle(
@@ -111,7 +111,7 @@ class _introState extends State<intro> {
       title: 'القصص',
       body: 'يحتوي البرنامج علئ قصص متنوعة ومفيدة',
       image: Center(
-        child: Image.asset('asst/p2.jpg'),
+        child: Image.asset('asst/app/p2.jpg'),
       ),
       decoration: const PageDecoration(
         titleTextStyle: TextStyle(
@@ -124,7 +124,7 @@ class _introState extends State<intro> {
       title: 'Thinks',
       body: 'شكرا لاختيارك تطبيقنا! ابدا الاستخدام الان',
       image: Center(
-        child: Image.asset('asst/p3.jpg'),
+        child: Image.asset('asst/app/p3.jpg'),
       ),
       decoration: const PageDecoration(
 

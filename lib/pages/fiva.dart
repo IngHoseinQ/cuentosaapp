@@ -219,7 +219,7 @@ class _favState extends State<fav> {
                                               'تم حذف القصة بنجاح',
                                               textAlign: TextAlign.center,
                                             ),
-                                            backgroundColor: Colors.green,
+                                            backgroundColor: Colors.redAccent,
                                             duration: Duration(seconds: 2),
                                           ),
                                         );
@@ -245,7 +245,8 @@ class _favState extends State<fav> {
                 );
               },
               onTap: () {
-                Navigator.of(context).push(
+                Navigator.push(
+                  context,
                   MaterialPageRoute(
                     builder: (context) => ViewStory(
                       data: story,
@@ -271,8 +272,13 @@ class _favState extends State<fav> {
                         if (file.existsSync()) {
                           return FileImage(file);
                         }
-                        return  AssetImage(story.img);
-                      })() as ImageProvider<Object>?,
+                        if (story.img =="") {
+                          return AssetImage("asst/app/p4.jpg");
+
+                        }else{
+                          return AssetImage(story.img);
+                        }
+                      })()as ImageProvider<Object>?,
                       radius: 50.0,
                     ),
                   ),

@@ -43,11 +43,7 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
       _themeData = _isDarkMode ? ThemeData.dark() : ThemeData.light();
     });
   }
-  void _showMessage(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
-  }
+
 
   void _onAddButtonPressed() async {
     if (_formKey.currentState!.validate()) {
@@ -86,7 +82,16 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
         categoryId: _categoryId,
       );
       await database_st().insertStors(story);
-      _showMessage('تمت اضافة قصتك الئ القصص بنجاح');
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'تمت اضافة روايتك الئ القصص بنجاح',
+              textAlign: TextAlign.center,
+            ),
+            backgroundColor: Colors.blue,
+            duration: Duration(seconds: 2),
+          ),
+      );
       Permission.storage.request();
       _titleController.clear();
       _storyController.clear();
@@ -103,7 +108,7 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
           appBar: AppBar(
             centerTitle: true,
             backgroundColor: Colors.purple,
-            title: Text('إضافة قصة'),
+            title: Text('إضافة رواية'),
           ),
           body: SingleChildScrollView(
             child: Padding(

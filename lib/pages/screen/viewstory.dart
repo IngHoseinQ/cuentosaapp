@@ -27,6 +27,7 @@ class _ViewStoryState extends State<ViewStory> {
   @override
   void initState() {
     super.initState();
+    _loadTheme();
     _scrollController.addListener(() {
       if (_scrollController.position.userScrollDirection ==
           ScrollDirection.reverse) {
@@ -38,7 +39,7 @@ class _ViewStoryState extends State<ViewStory> {
           _isVisible = true;
         });
       }
-      _loadTheme();
+
     });
   }
 
@@ -54,6 +55,7 @@ class _ViewStoryState extends State<ViewStory> {
     void disopose() {
       _scrollController.dispose();
       super.dispose();
+      _loadTheme();
     }
 
   @override
@@ -82,7 +84,13 @@ class _ViewStoryState extends State<ViewStory> {
                     if (file.existsSync()) {
                       return Image.file(file,fit: BoxFit.cover,);
                     } else {
-                      return Image.asset(widget.data.img.toString(),fit: BoxFit.cover);
+                      if(widget.data.img.toString()==""){
+                        return Image.asset('asst/p4.jpg',
+                            fit: BoxFit.cover);
+                      }else{
+                      return Image.asset(widget.data.img.toString(),
+                          fit: BoxFit.cover);
+                    }
                     }
                   })(),
                 ),
@@ -101,15 +109,25 @@ class _ViewStoryState extends State<ViewStory> {
               hasScrollBody: true,
               child: Directionality(
                 textDirection: TextDirection.rtl,
-                child: HighlightView(
-                  widget.data.story.toString(),
-                  language: 'arabic',
-                  theme: _isDarkMode ? darculaTheme : atomOneLightTheme,
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: _fontSize,
+                child:Center(
+                  child: Container(
+                    padding: EdgeInsets.only(left: 20,right: 20),
+                    child:Text(
+                      widget.data.story.toString(),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: _fontSize,
+                        shadows: [
+                          Shadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            blurRadius: 5,
+                            offset: Offset(0, 2), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  padding: EdgeInsets.all(35),
                 ),
               ),
             ),

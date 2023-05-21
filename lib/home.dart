@@ -1,6 +1,7 @@
 import 'package:cuentosaapp/pages/botom.dart';
 import 'package:flutter/material.dart';
 import 'package:backdrop/backdrop.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'pages/screen/add_stor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +13,8 @@ class ahome extends StatefulWidget {
 }
 
 class _ahomeState extends State<ahome> {
-  void showMessage(BuildContext context) {
+
+  Future<void> showMessage(BuildContext context) async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -90,40 +92,25 @@ class _ahomeState extends State<ahome> {
       },
     );
   }
-  void showMessageabout(BuildContext context) {
+
+  void showMessageAbout(BuildContext context) {
     const String name = "Hossein Ahmed Qasspa";
     const String email = "hq84068@gmail.com";
-    Future<void> launchEmail() async {
-      final Uri params = Uri(
-        scheme: 'mailto',
-        path: 'hq84068@gmail.com',
-        query: 'subject=Hello&body=World!',
-      );
-      final email = params.toString();
-      if (await canLaunch(email)) {
-        await launch(email);
-      } else {
-        throw 'Could not launch email';
-      }
-    }
-    Future<void> launchTelegram() async {
-      const url = 'https://t.me/O_2_y';
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        throw 'Could not launch Telegram';
-      }
-    }
-    Future<void> launchFacebook() async {
-      const url = 'https://www.facebook.com/hossein.qasspa';
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        throw 'Could not launch Facebook';
-      }
-    }
-    const String whatsappUrl = "https://wa.me/qr/GQWUIHZPCU67B1";
+    const String facebookUrl = 'https://www.facebook.com/hossein.qasspa';
+    const String telegramUrl = 'https://t.me/O_2_y';
+    const String whatsappUrl = "https://wa.me/+967776764455";
 
+    Future<void> copyToClipboard(String url, String message) async {
+      await Clipboard.setData(ClipboardData(text: url));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message,
+          textAlign: TextAlign.center,
+        ),
+          backgroundColor: Colors.greenAccent,
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
 
     showDialog(
       context: context,
@@ -156,19 +143,31 @@ class _ahomeState extends State<ahome> {
                   children: [
                     IconButton(
                       icon: Icon(Icons.email, color: Colors.orange),
-                      onPressed: () async => await launchEmail(),
+                      onPressed: () async => await copyToClipboard(
+                        email,
+                        'تم نسخ الايميل',
+                      ),
                     ),
                     IconButton(
                       icon: Icon(Icons.facebook, color: Colors.blueAccent),
-                      onPressed: () async => await launchFacebook(),
+                      onPressed: () async => await copyToClipboard(
+                        facebookUrl,
+                        'تم نسخ رابط الفيسبوك',
+                      ),
                     ),
                     IconButton(
                       icon: Icon(Icons.telegram, color: Colors.blue),
-                      onPressed: () async => await launchTelegram(),
+                      onPressed: () async => await copyToClipboard(
+                        telegramUrl,
+                        'تم نسخ رابط التيليجرام',
+                      ),
                     ),
                     IconButton(
                       icon: Icon(Icons.perm_phone_msg, color: Colors.green),
-                      onPressed: () async => await launch(whatsappUrl),
+                      onPressed: () async => await copyToClipboard(
+                        whatsappUrl,
+                        'تم نسخ رابط الوتس اب ',
+                      ),
                     ),
                   ],
                 ),
@@ -190,84 +189,91 @@ class _ahomeState extends State<ahome> {
       },
     );
   }
-  @override
-  Widget build(BuildContext context) {
-    return
+String show=" من هنا اضف روايتك";
+    @override
+    Widget build(BuildContext context) {
+      return
 
-      BackdropScaffold(
-      appBar: BackdropAppBar(
+        BackdropScaffold(
+          appBar: BackdropAppBar(
 
-        title: const Text('روايتي'),
-        actions: <Widget>[
-IconButton(
-    icon: Icon(Icons.add),
-     onPressed:(){
-       Navigator.push(
-           context,
-           MaterialPageRoute(
-               builder: (context) => AddStoryScreen()));
-  },
-),
-        ],
-
-        centerTitle: true,
-
-      ),
-
-      backLayer: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: Center(
-              child: CircleAvatar(
-                backgroundImage: Image.asset(
-                  "asst/app.png",
-                  fit: BoxFit.contain,
-                  alignment: Alignment.center,
-                ).image,
-                minRadius: 120,
-              ),
-            ),
-          ),
-  Center(
-    child: Text(
-      'مرحبا بكم في تطبيقنا المتواضع نرجو ان ينال اعجابكم ',
-      style: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-        fontSize: 20.0,
-      ),
-    ),
-  ),
-SizedBox(height: 20),
-          ListTile(
-            leading: Icon(Icons.help, color: Colors.white),
-            title: Text(
-              'المساعدة',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 20.0,
-              ),
-            ),
-onTap: (){
-  showMessage(context);
-},
-          ),
-              ListTile(
-                leading: Icon(Icons.app_shortcut,color:Colors.white),
-                title: Text('عن التطبيق',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold , fontSize: 20.0,)),
-                onTap: () {
-                  showMessageabout(context);
+            title: const Text('روايتي'),
+            actions: <Widget>[
+              IconButton(
+                tooltip:show ,
+                icon: Icon(Icons.add_circle_outline_outlined,color: Colors.green),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AddStoryScreen()));
                 },
               ),
-        ],
-      ),
+            ],
 
-      frontLayer:  MyHomePage(),
+            centerTitle: true,
+
+          ),
+
+          backLayer: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Center(
+                  child: CircleAvatar(
+                    backgroundImage: Image
+                        .asset(
+                      "asst/app/app.png",
+                      fit: BoxFit.contain,
+                      alignment: Alignment.center,
+                    )
+                        .image,
+                    minRadius: 120,
+                  ),
+                ),
+              ),
+              Center(
+                child: Text(
+                  'مرحبا بكم في تطبيقنا المتواضع نرجو ان ينال اعجابكم ',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              ListTile(
+                leading: Icon(Icons.help, color: Colors.white),
+                title: Text(
+                  'المساعدة',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                  ),
+                ),
+                onTap: () {
+                  showMessage(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.app_shortcut, color: Colors.white),
+                title: Text('عن التطبيق', style: TextStyle(color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,)),
+                onTap: () async {
+                  setState(() {
+                    showMessageAbout(context);
+                  });
+
+                },
+              ),
+            ],
+          ),
+
+          frontLayer: MyHomePage(),
 
         );
-
-
+    }
   }
-}

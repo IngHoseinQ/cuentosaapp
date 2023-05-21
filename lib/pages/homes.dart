@@ -27,7 +27,7 @@ class HomeInter extends StatelessWidget {
                 ),
 
                 background: Image.asset(
-                  'asst/p4.jpg',
+                  'asst/app/p4.jpg',
                   fit: BoxFit.cover,
                 ),
               ),

@@ -39,7 +39,8 @@ class _MyHomePageState extends State<MyHomePage> {
       prefs.setBool('isDarkMode', _isDarkMode);
     });
   }
-
+String dark="تفعيل الوضع المعتم";
+  String light="تفعيل الوضع الفاتح";
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -85,6 +86,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
 
             floatingActionButton: IconButton(
+              tooltip:_isDarkMode
+              ?light
+              :dark,
               icon: _isDarkMode
                   ? Icon(Icons.light_mode)
                   : Icon(Icons.dark_mode),
