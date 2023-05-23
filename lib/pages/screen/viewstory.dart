@@ -64,7 +64,6 @@ class _ViewStoryState extends State<ViewStory> {
       data: _themeData ?? ThemeData.light(),
       child: Scaffold(
         body: CustomScrollView(
-          controller: _scrollController,
           slivers: [
             SliverAppBar(
               backgroundColor: Colors.purple,
@@ -85,7 +84,7 @@ class _ViewStoryState extends State<ViewStory> {
                       return Image.file(file,fit: BoxFit.cover,);
                     } else {
                       if(widget.data.img.toString()==""){
-                        return Image.asset('asst/p4.jpg',
+                        return Image.asset('asst/app/p4.jpg',
                             fit: BoxFit.cover);
                       }else{
                       return Image.asset(widget.data.img.toString(),
@@ -100,6 +99,13 @@ class _ViewStoryState extends State<ViewStory> {
                     color: Colors.white,
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
+                    shadows: [
+                      Shadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        blurRadius: 5,
+                        offset: Offset(0, 2), // changes position of shadow
+                      ),
+                    ],
                   ),
                 ),
                 centerTitle: true,
@@ -107,29 +113,33 @@ class _ViewStoryState extends State<ViewStory> {
             ),
             SliverFillRemaining(
               hasScrollBody: true,
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child:Center(
-                  child: Container(
-                    padding: EdgeInsets.only(left: 20,right: 20),
-                    child:Text(
-                      widget.data.story.toString(),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: _fontSize,
-                        shadows: [
-                          Shadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            blurRadius: 5,
-                            offset: Offset(0, 2), // changes position of shadow
-                          ),
-                        ],
+              child:SingleChildScrollView(
+                controller: _scrollController,
+                scrollDirection: Axis.vertical,
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Center(
+                    child: Container(
+                      padding: EdgeInsets.only(left: 20, right: 20, top: 50 ,bottom: 100),
+                      child: Text(
+                        widget.data.story.toString(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: _fontSize,
+                          shadows: [
+                            Shadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              blurRadius: 5,
+                              offset: Offset(0, 2), // changes position of shadow
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
+              )
             ),
           ],
         ),

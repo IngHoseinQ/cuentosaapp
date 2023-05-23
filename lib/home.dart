@@ -194,86 +194,89 @@ String show=" من هنا اضف روايتك";
     Widget build(BuildContext context) {
       return
 
-        BackdropScaffold(
-          appBar: BackdropAppBar(
+        Directionality(
+          textDirection: TextDirection.rtl,
+          child: BackdropScaffold(
+            appBar: BackdropAppBar(
 
-            title: const Text('روايتي'),
-            actions: <Widget>[
-              IconButton(
-                tooltip:show ,
-                icon: Icon(Icons.add_circle_outline_outlined,color: Colors.green),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AddStoryScreen()));
-                },
-              ),
-            ],
+              title: const Text('روايتي'),
+              actions: <Widget>[
+                IconButton(
+                  tooltip:show ,
+                  icon: Icon(Icons.add_circle_outline_outlined,color: Colors.green),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddStoryScreen()));
+                  },
+                ),
+              ],
 
-            centerTitle: true,
+              centerTitle: true,
+
+            ),
+
+            backLayer: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Center(
+                    child: CircleAvatar(
+                      backgroundImage: Image
+                          .asset(
+                        "asst/app/app.png",
+                        fit: BoxFit.contain,
+                        alignment: Alignment.center,
+                      )
+                          .image,
+                      minRadius: 120,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    'مرحبا بكم في تطبيقنا المتواضع نرجو ان ينال اعجابكم ',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                ListTile(
+                  leading: Icon(Icons.help, color: Colors.white),
+                  title: Text(
+                    'المساعدة',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                    ),
+                  ),
+                  onTap: () {
+                    showMessage(context);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.app_shortcut, color: Colors.white),
+                  title: Text('عن التطبيق', style: TextStyle(color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,)),
+                  onTap: () async {
+                    setState(() {
+                      showMessageAbout(context);
+                    });
+
+                  },
+                ),
+              ],
+            ),
+
+            frontLayer: MyHomePage(),
 
           ),
-
-          backLayer: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Center(
-                  child: CircleAvatar(
-                    backgroundImage: Image
-                        .asset(
-                      "asst/app/app.png",
-                      fit: BoxFit.contain,
-                      alignment: Alignment.center,
-                    )
-                        .image,
-                    minRadius: 120,
-                  ),
-                ),
-              ),
-              Center(
-                child: Text(
-                  'مرحبا بكم في تطبيقنا المتواضع نرجو ان ينال اعجابكم ',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-              ListTile(
-                leading: Icon(Icons.help, color: Colors.white),
-                title: Text(
-                  'المساعدة',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
-                  ),
-                ),
-                onTap: () {
-                  showMessage(context);
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.app_shortcut, color: Colors.white),
-                title: Text('عن التطبيق', style: TextStyle(color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,)),
-                onTap: () async {
-                  setState(() {
-                    showMessageAbout(context);
-                  });
-
-                },
-              ),
-            ],
-          ),
-
-          frontLayer: MyHomePage(),
-
         );
     }
   }

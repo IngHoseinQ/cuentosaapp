@@ -36,8 +36,8 @@ class _MyappState extends State<Myapp> {
         home: Directionality( // add this
         textDirection: TextDirection.rtl,
           //child: AddStoryScreen(),
-        //  child: show ? intro() :  ahome(),
-        child:  ahome(),
+        child: show ? intro() :  const ahome(),
+       // child:  intro(),
         ),
     );
   }

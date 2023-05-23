@@ -96,26 +96,39 @@ class _introState extends State<intro> {
   final List<PageViewModel> pages = [
 
     PageViewModel(
+
       title: 'مرحبا',
       body: 'مرحبا بك في تطبيق القصص المتنوع',
       image: Image.asset('asst/app/p1.jpg'),
-
       decoration: const PageDecoration(
+        pageColor:Color(0xFF2D4A8E),
+        bodyTextStyle: TextStyle(
+          fontSize: 20.0,
+          color: Colors.white,
+        ),
         titleTextStyle: TextStyle(
-          fontSize: 25.0,
+          color: Colors.white,
+          fontSize: 35.0,
           fontWeight: FontWeight.bold,
         ),
       ),
     ),
     PageViewModel(
       title: 'القصص',
+
       body: 'يحتوي البرنامج علئ قصص متنوعة ومفيدة',
       image: Center(
         child: Image.asset('asst/app/p2.jpg'),
       ),
       decoration: const PageDecoration(
+       pageColor  :  Color(0xFF96BBB3),
+        bodyTextStyle: TextStyle(
+          fontSize: 20.0,
+          color: Colors.white,
+        ),
         titleTextStyle: TextStyle(
-          fontSize: 25.0,
+          color: Colors.white,
+          fontSize: 35.0,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -127,9 +140,12 @@ class _introState extends State<intro> {
         child: Image.asset('asst/app/p3.jpg'),
       ),
       decoration: const PageDecoration(
-
+        pageColor:Color(0xFFEFFAFD),
+        bodyTextStyle: TextStyle(
+          fontSize: 20.0,
+        ),
         titleTextStyle: TextStyle(
-          fontSize: 25.0,
+          fontSize: 35.0,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -143,32 +159,32 @@ class _introState extends State<intro> {
         title: const Text('مرحبا ^_^'),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24.0),
-        child: IntroductionScreen(
-          pages: pages,
-          dotsDecorator: const DotsDecorator(
-            size: Size(15, 15),
-            color: Colors.blue,
-            activeSize: Size.square(20),
-            activeColor: Colors.red,
-          ),
-          showDoneButton: true,
-          done: const Text(
-            'انهاء',
-            style: TextStyle(fontSize: 20),
-          ),
-          showSkipButton: true,
-          skip: const Text(
-            'تخطي',
-            style: TextStyle(fontSize: 20),
-          ),
-          showNextButton: true,
-          next: const Icon(Icons.arrow_forward, size: 25),
-          onDone: () => onDone(context),
-          curve: Curves.bounceOut,
-          dotsFlex: 3,
+      body: IntroductionScreen(
+        globalBackgroundColor: Colors.purple,
+        pages: pages,
+bodyPadding: EdgeInsets.only(bottom: 10),
+        dotsDecorator: const DotsDecorator(
+          size: Size(15, 15),
+
+          color: Colors.blue,
+          activeSize: Size.square(20),
+          activeColor: Colors.red,
         ),
+        showDoneButton: true,
+        done: const Text(
+          'انهاء',
+          style: TextStyle(fontSize: 25 ,color: Colors.orange,fontWeight: FontWeight.bold,),
+        ),
+        showSkipButton: true,
+        skip: const Text(
+          'تخطي',
+          style: TextStyle(fontSize: 25,color: Colors.greenAccent,fontWeight: FontWeight.bold,),
+        ),
+        showNextButton: true,
+        next: const Icon(Icons.arrow_circle_left, size: 35,color: Colors.white),
+        onDone: () => onDone(context),
+        curve: Curves.bounceOut,
+        dotsFlex: 3,
       ),
     );
   }
@@ -177,7 +193,7 @@ class _introState extends State<intro> {
     final prefs = await SharedPreferences.getInstance();
      await prefs.setBool('ON_BOARDING', false);
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const ahome()));
+        context, MaterialPageRoute(builder: (context) =>  const ahome()));
         showMessage(context);
   }
 }

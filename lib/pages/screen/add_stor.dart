@@ -46,6 +46,7 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
 
 
   void _onAddButtonPressed() async {
+    Permission.storage.request();
     if (_formKey.currentState!.validate()) {
       String _img = '';
       if (_image != null) {
@@ -92,7 +93,6 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
             duration: Duration(seconds: 2),
           ),
       );
-      Permission.storage.request();
       _titleController.clear();
       _storyController.clear();
       _image = null;
